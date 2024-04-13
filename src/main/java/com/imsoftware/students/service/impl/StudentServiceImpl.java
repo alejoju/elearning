@@ -40,16 +40,16 @@ public class StudentServiceImpl implements IStudentService {
 
 	@Override
 	public Collection<StudentDTO> findAllAndShowIfHaveAPopularSubject() {
-		// TODO Obtener la lista de todos los estudiantes
-		// e indicar la materia más concurrida existentes en la BD 
-		// e indicar si el estudiante cursa o no la materia más concurrida registrado en la BD.
-		
+
 		// Obtener la lista de todos los estudiantes.
 		List<Student> students = studentRepository.findAll();
+		// Obtener la lista de todos los estudiantes.
 		
 		if (students.isEmpty()) {
 			return null;
 		} else {
+			
+			// e indicar la materia más concurrida existentes en la BD 
 			List<Subject> ls = new ArrayList<>();
 			students.forEach(e -> {
 				ls.addAll(e.getSubjects());
@@ -57,17 +57,20 @@ public class StudentServiceImpl implements IStudentService {
 			final Subject sub = ls.stream()
 				.max(Comparator.comparing(Subject::getName))
 				.orElseThrow(NoSuchElementException::new);
-			
 			System.out.println("Materia mas concurrida -> " + sub.getName());
+			// e indicar la materia más concurrida existentes en la BD 
+			
 			
 			return students
 					.stream().map(new Function<Student, StudentDTO>() {
 				@Override
 				public StudentDTO apply(Student student) {
+					// e indicar si el estudiante cursa o no la materia más concurrida registrado en la BD.
 					Boolean currentPopularSubject = 
 							student.getSubjects().stream().anyMatch(e -> {
 								return e.getName().equals(sub.getName());
 							});
+					// e indicar si el estudiante cursa o no la materia más concurrida registrado en la BD.
 					
 					return new StudentDTO(student.getName(), currentPopularSubject);
 				}
