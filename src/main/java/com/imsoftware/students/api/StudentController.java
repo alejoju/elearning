@@ -2,6 +2,7 @@ package com.imsoftware.students.api;
 
 import java.util.Collection;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,12 +12,8 @@ import com.imsoftware.students.service.IStudentService;
 @RestController
 public class StudentController {
 
-	private final IStudentService studentService;
-
-	public StudentController(IStudentService studentService) {
-		super();
-		this.studentService = studentService;
-	}
+	@Autowired
+	private IStudentService studentService;
 
 	@GetMapping("/students")
 	Collection<StudentDTO> all() {

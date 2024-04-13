@@ -9,6 +9,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import com.imsoftware.students.repository.StudentRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.imsoftware.students.domain.StudentDTO;
@@ -19,12 +21,8 @@ import com.imsoftware.students.service.IStudentService;
 @Service
 public class StudentServiceImpl implements IStudentService {
 
-	private final StudentRepository studentRepository;
-
-	public StudentServiceImpl(StudentRepository studentRepository) {
-		super();
-		this.studentRepository = studentRepository;
-	}
+	@Autowired
+	private StudentRepository studentRepository;
 
 	@Override
 	public Collection<StudentDTO> findAll() {
